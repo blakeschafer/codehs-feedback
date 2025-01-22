@@ -3,7 +3,7 @@ const feedbackInput = document.getElementById('feedbackInput');
 const submitFeedback = document.getElementById('submitFeedback');
 
 // Backend URL (replace with your deployed backend URL later)
-const BACKEND_URL = 'https://your-backend.vercel.app';
+const BACKEND_URL = 'https://codehs-feedback.vercel.app/';
 
 // Load feedback from backend
 async function loadFeedback() {
