@@ -6,6 +6,8 @@ const app = express();
 // CORS Configuration: Only allow your GitHub Pages URL
 app.use(cors({ origin: 'https://blakeschafer.github.io' }));
 
+app.options('*', cors());
+
 // MongoDB connection
 const connectDB = async () => {
   if (mongoose.connection.readyState === 0) {
