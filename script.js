@@ -16,6 +16,7 @@ async function loadFeedback() {
             headers: {
                 'Accept': 'application/json',
             },
+            credentials: 'include',  // Add this
             mode: 'cors'
         });
 
