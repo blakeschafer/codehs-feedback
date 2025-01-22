@@ -3,12 +3,17 @@ const cors = require('cors');
 const express = require('express');
 const app = express();
 
-// Enhanced CORS configuration
+// At the top of your routes, add explicit OPTIONS handling
+app.options('/api/feedback', cors());
+
+// Modify your CORS setup slightly
 app.use(cors({
-    origin: ['https://blakeschafer.github.io', 'http://localhost:3000'],
+    origin: 'https://blakeschafer.github.io',  // Remove the array and just use the main URL
     methods: ['GET', 'POST', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true
+    allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
+    credentials: true,
+    preflightContinue: false,
+    optionsSuccessStatus: 204
 }));
 
 // MongoDB connection with error handling
@@ -80,3 +85,10 @@ app.post('/api/feedback', async (req, res) => {
 });
 
 module.exports = app;
+
+if (require.main === module) {
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+    });
+}
