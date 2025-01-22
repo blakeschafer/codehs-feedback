@@ -1,34 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CodeHS Feedback Board</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeHS Feedback Board</title>
+    <style>
+        :root {
+            --primary-color: #0066cc;
+            --background-color: #f5f5f5;
+            --text-color: #333;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .feedback-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        input, select, textarea {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 12px 24px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .feedback-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .feedback-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .student-name {
+            font-weight: bold;
+        }
+
+        .tag {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            color: white;
+        }
+
+        .question {
+            background-color: #ff6b6b;
+        }
+
+        .feedback {
+            background-color: #4ecdc4;
+        }
+
+        .other {
+            background-color: #95a5a6;
+        }
+
+        .feedback-text {
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+
+        .timestamp {
+            color: #666;
+            font-size: 12px;
+        }
+
+        .error {
+            color: #ff4444;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <!-- Logo -->
-    <img src="uploads/logo.png" alt="CodeHS Logo" class="logo">
+    <div class="container">
+        <header class="header">
+            <h1>CodeHS Feedback Board</h1>
+        </header>
 
-    <!-- Header -->
-    <h1>CodeHS Feedback</h1>
+        <div class="feedback-form">
+            <input type="text" id="studentName" placeholder="Your Name (optional)">
+            <textarea id="feedbackInput" placeholder="Share your thoughts about CodeHS..." rows="4"></textarea>
+            <select id="tagSelect">
+                <option value="feedback">Feedback</option>
+                <option value="question">Question</option>
+                <option value="other">Other</option>
+            </select>
+            <button id="submitFeedback">Submit Feedback</button>
+        </div>
 
-    <!-- Feedback Input Section -->
-    <div class="input-container">
-      <input
-        id="feedbackInput"
-        type="text"
-        placeholder="Share your thoughts, questions, suggestions for CodeHS..."
-      />
-      <button id="submitFeedback">Submit</button>
+        <div id="feedbackList" class="feedback-list">
+            <!-- Feedback items will be added here dynamically -->
+        </div>
     </div>
 
-    <!-- Feedback List Section -->
-    <div id="feedbackList" class="feedback-list">
-      <!-- Feedback cards will be dynamically added here -->
-    </div>
-  </div>
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
