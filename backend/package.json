@@ -3,8 +3,10 @@
     "version": "1.0.0",
     "main": "api/feedback.js",
     "license": "MIT",
-    "dependencies": {
-      "mongoose": "^7.0.0"
-    }
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "mongoose": "^8.0.0"
   }
+}
   
