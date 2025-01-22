@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 const cors = require('cors');
-app.use(cors({ origin: '*' }));
+const express = require('express');
+const app = express();
+
+// CORS Configuration: Only allow your GitHub Pages URL
+app.use(cors({ origin: 'https://blakeschafer.github.io' }));
 
 // MongoDB connection
 const connectDB = async () => {
@@ -12,7 +16,7 @@ const connectDB = async () => {
   }
 };
 
-// Feedback schema and model
+// Feedback Schema and Model
 const Feedback = mongoose.model(
   'Feedback',
   new mongoose.Schema({
@@ -22,29 +26,31 @@ const Feedback = mongoose.model(
   })
 );
 
-module.exports = async (req, res) => {
-  await connectDB();
+app.use(express.json()); // Parse JSON body
 
-  if (req.method === 'GET') {
-    // Fetch all feedback
+// API Routes
+app.get('/api/feedback', async (req, res) => {
+  await connectDB();
+  try {
     const feedbacks = await Feedback.find();
     res.status(200).json(feedbacks);
-  } else if (req.method === 'POST') {
-    // Add new feedback
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to fetch feedback', error: err.message });
+  }
+});
+
+app.post('/api/feedback', async (req, res) => {
+  await connectDB();
+  try {
     const { text, studentName } = req.body;
     if (!text) return res.status(400).json({ message: 'Text is required' });
 
     const feedback = new Feedback({ text, studentName });
     await feedback.save();
     res.status(201).json({ message: 'Feedback added!' });
-  } else if (req.method === 'DELETE') {
-    // Delete feedback by ID
-    const { id } = req.query;
-    if (!id) return res.status(400).json({ message: 'ID is required' });
-
-    await Feedback.findByIdAndDelete(id);
-    res.status(200).json({ message: 'Feedback deleted!' });
-  } else {
-    res.status(405).json({ message: 'Method not allowed' });
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to save feedback', error: err.message });
   }
-};
+});
+
+module.exports = app;
