@@ -8,7 +8,7 @@ app.options('/api/feedback', cors());
 
 // Modify your CORS setup slightly
 app.use(cors({
-    origin: 'https://blakeschafer.github.io',  // Remove the array and just use the main URL
+    origin: 'https://blakeschafer.github.io/codehs-feedback/',  // Remove the array and just use the main URL
     methods: ['GET', 'POST', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
     credentials: true,
